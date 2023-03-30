@@ -72,6 +72,6 @@
 
 - name: Run soar-install script
   command:
-    chdir: "/home/{{splunk_soar_user }}/splunk-soar"
+    chdir: "/home/{{ splunk_soar_user }}/splunk-soar"
     cmd: "./soar-install --splunk-soar-home {{ splunk_soar_home }} --splunk-soar-user {{ splunk_soar_user }} --splunk-soar-port {{ splunk_soar_port }} --no-prompt --ignore-warnings"
   become_user: "{{ splunk_soar_user }}"
