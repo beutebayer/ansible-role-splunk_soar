@@ -1,0 +1,26 @@
+---
+name: CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install yamllint
+        run: pip3 install yamllint
+
+      - name: Lint code
+        run: |
+          yamllint .

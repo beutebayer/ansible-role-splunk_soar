@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  role_name: splunk-soar
+  author: beutebayer
+  description: Installs Splunk SOAR on RHEL
+  license: license (MIT)
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+        - 8
+  galaxy_tags:
+    - redhat
+    - splunk
+    - soar
+
+dependencies: []

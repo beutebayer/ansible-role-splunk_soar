@@ -1,0 +1,77 @@
+---
+- name: Add a unix group for SOAR
+  ansible.builtin.group:
+    name: "{{ splunk_soar_group }}"
+    state: present
+
+- name: Add a unix user for SOAR
+  ansible.builtin.user:
+    name: "{{ splunk_soar_user }}"
+    group: "{{ splunk_soar_group }}"
+    home: "/home/{{ splunk_soar_user }}"
+    shell: /bin/bash
+
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install requirements
+  ansible.builtin.dnf:
+    name:
+      - git
+      - wget
+      - libevent
+      - libicu
+      - c-ares
+      - bind-utils
+      - mailcap
+      - fontconfig
+      - perl
+      - rsync
+      - xmlsec1
+      - xmlsec1-openssl
+      - libxslt
+      - zip
+      - net-tools
+      - libxml2
+      - libcurl
+      - gnutls
+
+- name: Check if the tgz is already downloaded
+  ansible.builtin.stat:
+    path: "/home/{{ splunk_soar_user }}/{{ splunk_soar_tgz }}"
+  register: tgz_downloaded
+
+- name: Download Splunk SOAR tgz
+  ansible.builtin.get_url:
+    url: "{{ splunk_soar_tgz_url }}"
+    dest: "/home/{{ splunk_soar_user }}/{{ splunk_soar_tgz }}"
+    owner: "{{ splunk_soar_user }}"
+    group: "{{ splunk_soar_group }}"
+  when: not tgz_downloaded.stat.exists
+
+- name: Check if the tgz is already extracted
+  ansible.builtin.stat:
+    path: "/home/{{ splunk_soar_user }}/splunk-soar"
+  register: tgz_downloaded
+
+- name: Extract Splunk SOAR tgz
+  unarchive:
+    src: "/home/{{ splunk_soar_user }}/{{ splunk_soar_tgz }}"
+    dest: "/home/{{ splunk_soar_user }}/"
+    owner: "{{ splunk_soar_user }}"
+    group: "{{ splunk_soar_group }}"
+    remote_src: true
+  when: not tgz_downloaded.stat.exists
+
+- name: Run soar-prepare-system script
+  command:
+    chdir: "/home/{{splunk_soar_user }}/splunk-soar"
+    cmd: "./soar-prepare-system --splunk-soar-home {{ splunk_soar_home }} --splunk-soar-user {{ splunk_soar_user }} --splunk-soar-port {{ splunk_soar_port }} --no-prompt"
+
+- name: Run soar-install script
+  command:
+    chdir: "/home/{{splunk_soar_user }}/splunk-soar"
+    cmd: "./soar-install --splunk-soar-home {{ splunk_soar_home }} --splunk-soar-user {{ splunk_soar_user }} --splunk-soar-port {{ splunk_soar_port }} --no-prompt --ignore-warnings"
+  become_user: "{{ splunk_soar_user }}"

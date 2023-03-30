@@ -1,0 +1,9 @@
+---
+splunk_soar_tgz_url:
+
+splunk_soar_unix_user: soar
+splunk_soar_unix_group: soar
+splunk_soar_home: /opt/soar
+splunk_soar_port: 8443
+
+splunk_soar_tgz: "{{ splunk_soar_tgz_url | regex_search('\/([^\/]+.tgz)$', '\\1') | first }}"
