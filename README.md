@@ -35,7 +35,7 @@ None.
 ```
 - hosts: soar-server
   roles:
-    - beutebayer.splunk-soar
+    - beutebayer.splunk_soar
 ```
 
 ## License
@@ -44,4 +44,4 @@ MIT
 
 ## Author Information
 
-Created by [beutebayer](https://galaxy.ansible.com/beutebayer)
+Created by [beutebayer](https://github.com/beutebayer)
