@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: splunk-soar
+  role_name: splunk_soar
   author: beutebayer
   description: Installs Splunk SOAR on RHEL
   license: license (MIT)

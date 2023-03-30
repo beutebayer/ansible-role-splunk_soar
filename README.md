@@ -1,4 +1,4 @@
-# ansible-role-splunk-soar
+# ansible-role-splunk_soar
 [![CI](https://github.com/beutebayer/ansible-role-splunk-soar/workflows/CI/badge.svg)](https://github.com/beutebayer/ansible-role-splunk-soar/actions/workflows/ci.yml?query=workflow%3ACI) 
 
 A ansible role to install [Splunk SOAR](https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html)
