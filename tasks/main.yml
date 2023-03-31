@@ -62,7 +62,6 @@
     dest: "/home/{{ splunk_soar_user }}/"
     owner: "{{ splunk_soar_user }}"
     group: "{{ splunk_soar_group }}"
-    mode: '0660'
     remote_src: true
   when: not tgz_downloaded.stat.exists
 
