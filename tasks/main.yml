@@ -11,11 +11,6 @@
     home: "/home/{{ splunk_soar_unix_user }}"
     shell: /bin/bash
 
-- name: Upgrade all packages
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
-
 - name: Install requirements
   ansible.builtin.dnf:
     name:
